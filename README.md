@@ -1,160 +1,76 @@
-# 🤖 DIO Agent
+# GuardAI: Agente Inteligente para Cibersegurança e Análise de Vulnerabilidades
 
-> Seu mentor de Inteligência Artificial para aprender mais e melhor na [DIO](https://dio.me).
+O **GuardAI** é uma especialização defensiva do [DIO Agent](https://github.com/digitalinnovationone/dio-agent). Ela ensina o agente a analisar vulnerabilidades junto com a pessoa: entender o contexto, confirmar o escopo, avaliar impacto e probabilidade, priorizar o risco e orientar a correção.
 
-O **DIO Agent** é um agente de IA que acompanha você na sua jornada de estudos. Ele conhece as experiências da DIO (Bootcamps, Formações, Cursos, Desafios e muito mais) e ajuda você a estudar com mais clareza, destravar desafios e entender qualquer conceito.
+> Use somente código e ambientes próprios ou explicitamente autorizados. O exemplo deste projeto usa SQLite em memória, sem servidor e sem dados reais.
 
-E você não precisa instalar nada complicado. Em **3 passos simples**, o seu mentor de IA estará pronto para usar.
+## O que foi acrescentado
 
----
+| Arquivo | Alteração |
+|---|---|
+| `skills/vulnerability-analysis/SKILL.md` | Processo que o agente segue na análise |
+| `skills/vulnerability-analysis/README.md` | Explicação da skill para pessoas |
+| `agent/knowledge/security-basics.md` | Vocabulário, CIA, risco e boas práticas |
+| `agent/persona.md` | Orientações de postura defensiva |
+| `AGENTS.md` | Carrega o conhecimento e indica quando usar a skill |
+| `skills/README.md` | Inclui a skill no catálogo |
+| `examples/app.py` | Exemplo local vulnerável, apenas para análise |
+| `examples/app_seguro.py` | Exemplo local com consulta parametrizada |
 
-## ✨ Antes de começar: dois conceitos rápidos
+## Como usar o GuardAI
 
-Para usar o DIO Agent, basta entender duas palavras. As duas estão no [Glossário completo](docs/glossary.md), mas aqui vai a versão rápida:
+1. Baixe ou clone este repositório.
+2. Instale um harness compatível seguindo a documentação oficial dele. O projeto base lista Hermes, Codex, Claude Code, Antigravity e outros.
+3. Abra a pasta `guardai-dio-agent` no harness e inicie-o na raiz do repositório. Para o Hermes, use:
+   ```bash
+   hermes
+   ```
 
-- 🧠 **Agente de IA:** um chatbot comum responde perguntas, como um buscador mais esperto. Um *agente* de IA vai além: ele lê, planeja e executa passos para te ajudar a alcançar um objetivo. É a diferença entre alguém que te explica o caminho e alguém que caminha junto com você. O DIO Agent é um agente desse tipo: um tutor particular que acompanha a sua evolução.
+O harness deve carregar o `AGENTS.md` ao abrir a pasta do projeto. Esse arquivo já aponta para a skill GuardAI e para a base de conhecimento de segurança.
 
-- 🖥️ **Harness:** é o programa onde a conversa com o agente acontece. Vale a comparação: o agente é o professor, e o harness é a sala de aula. O mesmo professor pode dar aula em salas diferentes. Por isso o DIO Agent funciona em qualquer harness: você escolhe a "sala" no Passo 1, e o seu mentor continua o mesmo.
+## Demonstração local
 
-Pronto. Com isso já dá para começar.
-
----
-
-## 🎯 O que o DIO Agent faz por você
-
-| Você precisa de... | O DIO Agent... |
-|--------------------|----------------|
-| Saber por onde começar | Monta um plano de estudos no seu ritmo |
-| Destravar um desafio | Te guia até a solução, sem entregar a resposta pronta |
-| Entender um conceito | Explica de forma simples, com analogias e exemplos |
-
-Ele conhece os formatos da DIO: Bootcamps, Formações, Acelerações, Cursos, English4Tech, Desafios de Código, Desafios de Projeto, Desafios Criativos, Lives e Mentorias. Assim, as recomendações sempre apontam para algo que você já tem na plataforma.
-
----
-
-## 🚀 Comece em 3 passos
-
-### 1️⃣ Instale um Harness
-
-O harness é o programa que dá vida ao agente. Recomendamos o **Google Antigravity**, que tem limites de uso mais generosos para quem está começando. Mas qualquer harness moderno funciona.
-
-| Harness | Documentação oficial |
-|---------|----------------------|
-| Google Antigravity (recomendado) | https://antigravity.google/docs |
-| Claude Code | https://docs.claude.com/en/docs/claude-code |
-| Codex | https://developers.openai.com/codex |
-| OpenCode | https://opencode.ai/docs |
-| Hermes | https://hermes-agent.nousresearch.com/docs |
-
-Escolha um e siga o passo a passo da documentação oficial dele. Cada documentação já traz tudo certinho para o seu sistema, então a instalação é tranquila.
-
-### 2️⃣ Configure o DIO Agent
-
-Agora você vai baixar este repositório para o seu computador. Escolha a forma mais simples para você:
-
-**Opção A: com Git** (se você já usa Git)
+Os exemplos usam apenas a biblioteca padrão do Python e criam um banco temporário em memória.
 
 ```bash
-git clone https://github.com/digitalinnovationone/dio-agent.git
+python examples/app.py
+python examples/app_seguro.py
 ```
 
-**Opção B: baixando o .zip** (se você não usa Git)
+O primeiro arquivo monta a consulta juntando o valor digitado. O segundo usa parâmetros SQL para manter os valores separados da estrutura da consulta. A demonstração verifica somente um login fictício; não é um sistema de autenticação real.
 
-Na página do repositório no GitHub, clique no botão verde **Code** e depois em **Download ZIP**. Em seguida, extraia a pasta em um lugar fácil de encontrar.
+## Prompt para conversar com o GuardAI
 
-Com o repositório baixado, abra a pasta `dio-agent` no harness que você instalou. Cada harness tem o seu jeito de abrir uma pasta de projeto, e a documentação dele mostra como fazer isso.
+Depois de abrir o harness na pasta do fork, peça:
 
-E é só isso! O harness lê automaticamente o arquivo `AGENTS.md` e o agente já sabe quem é: o seu mentor de estudos da DIO.
+> Analise `examples/app.py` como um exercício local e autorizado. Explique a falha sem testar nenhum sistema externo. Avalie impacto, probabilidade, severidade e confiança; indique se o mapeamento MITRE ATT&CK se aplica neste contexto; compare com `examples/app_seguro.py` e diga como validar a correção.
 
-> 🔄 **Fique de olho nas atualizações.** Não importa se você usou o Git ou o .zip: o repositório do DIO Agent evolui com o tempo. De tempos em tempos, vale voltar aqui e pegar a versão mais recente. Quem usou Git pode rodar `git pull` (ou pedir pro próprio DIO Agent rodar); quem baixou o .zip pode baixar de novo. Assim o seu mentor está sempre com o melhor que a gente tem a oferecer.
+Uma boa resposta deve identificar a montagem dinâmica da consulta, explicar por que dados de entrada não devem virar sintaxe SQL, distinguir o risco local de um serviço exposto e recomendar consultas parametrizadas. A técnica MITRE ATT&CK T1190 só deve ser considerada quando o cenário envolver exploração de uma aplicação exposta para acesso inicial; o identificador não é uma classificação automática de SQL injection. Consulte a [descrição oficial de T1190](https://attack.mitre.org/techniques/T1190/) e a [orientação da OWASP sobre prevenção de SQL injection](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html).
 
-### 3️⃣ Hands On!
+## Formato da análise
 
-Agora é só conversar. Você pode falar naturalmente, com as suas palavras. Mas, principalmente nas primeiras vezes, vale usar um modelo de prompt pronto: é só copiar e preencher os campos entre colchetes. Quanto mais contexto você dá, melhor o agente ajuda.
+O GuardAI organiza cada achado com:
 
-**🗺️ Plano de estudos**
+1. Resumo e escopo assumido.
+2. Evidência no código/configuração e nível de confiança.
+3. Impacto sobre confidencialidade, integridade e disponibilidade.
+4. Probabilidade, severidade e justificativa da prioridade.
+5. Mapeamento MITRE ATT&CK, quando aplicável.
+6. Correção recomendada e forma segura de validação.
+7. Risco residual ou informação que ainda falta.
 
-```
-Quero montar um plano de estudos (se possível, com materiais complementares).
-- Meu objetivo: [ex: aprender mais sobre IA, ser dev back-end, concluir um bootcamp]
-- Experiência ou carreira da DIO: [URL ou nome do bootcamp/formação, ou de uma carreira da DIO]
-- Meu nível hoje: [iniciante, intermediário, avançado]
-- Tempo disponível: [ex: 1 hora por dia, de segunda a sexta]
-```
+## Evidências para o portfólio
 
-**🔓 Destravar desafio**
+Na pasta `evidencias/`, guarde capturas de:
 
-```
-Estou travado em um Desafio de [Código, Projeto ou Criativo] da DIO.
-- O que o desafio pede: [cole o enunciado ou descreva]
-- Onde eu travei: [explique o ponto da dificuldade]
-- Meu código atual: [cole aqui, se for Desafio de Código]
-- Link do repositório base: [cole aqui, se for Desafio de Projeto]
-Me ajuda a destravar sem dar a resposta pronta.
-```
+- análise do `examples/app.py`;
+- pergunta do GuardAI sobre escopo e ambiente;
+- comparação com `examples/app_seguro.py`;
+- resposta com avaliação de risco e correção.
 
-**💡 Explicar conceito**
+Use somente dados fictícios nos prints. Não mostre tokens, senhas, informações pessoais ou sistemas de terceiros.
 
-```
-Me explica o conceito de [ex: API, laço de repetição, herança].
-- Meu nível: [nunca vi, já ouvi falar, quero aprofundar]
-- Onde apareceu: [ex: no curso X de um bootcamp] (opcional)
-```
+## Base e autoria
 
-Não precisa de comando especial nem de formato perfeito: o agente conduz a conversa a partir daí e pede mais detalhes se precisar.
+Este repositório é um fork do [DIO Agent](https://github.com/digitalinnovationone/dio-agent). A especialização GuardAI e os exemplos locais foram escritos para este exercício educacional.
 
----
-
-## 🧩 As skills do agente
-
-Uma **skill** é uma habilidade do agente, descrita em um guia passo a passo. O DIO Agent vem com três:
-
-| Skill | Para que serve |
-|-------|----------------|
-| [Plano de estudos](skills/study-plan/SKILL.md) | Organiza o que estudar, em que ordem e em quanto tempo |
-| [Destravar desafio](skills/unblock-challenge/SKILL.md) | Conduz você até a solução de um desafio, sem dar a resposta pronta |
-| [Explicar conceito](skills/explain-concept/SKILL.md) | Explica conceitos de forma didática, com analogias e exemplos |
-
-Você não precisa "chamar" uma skill. O agente percebe o que você precisa e usa a skill certa sozinho.
-
----
-
-## 🗂️ Estrutura do repositório
-
-```
-dio-agent/
-├── README.md                        Este guia
-├── AGENTS.md                        Definição do agente (lida por qualquer harness)
-├── CLAUDE.md                        Atalho para o Claude Code
-│
-├── agent/
-│   ├── persona.md                   A personalidade e o tom do agente
-│   └── knowledge/
-│       ├── dio-platform.md          O que é a DIO
-│       └── learning-experiences.md  Os formatos de aprendizado da DIO
-│
-├── skills/
-│   ├── README.md                    O que são skills
-│   ├── study-plan/                  Skill: plano de estudos
-│   ├── unblock-challenge/           Skill: destravar desafio
-│   └── explain-concept/             Skill: explicar conceito
-│
-└── docs/
-    └── glossary.md                  Glossário de termos
-```
-
-> 🔍 **Por que funciona em qualquer harness?** O coração do projeto é o arquivo `AGENTS.md`, um padrão aberto que harnesses modernos sabem ler. O `CLAUDE.md` apenas aponta para ele, então você pode usar o harness que preferir.
-
----
-
-## 📖 Glossário rápido
-
-Termos como *agente*, *harness*, *skill* e *prompt* estão explicados com analogias simples no **[Glossário completo](docs/glossary.md)**. Se algum termo soar estranho, comece por lá.
-
----
-
-## 💬 Sobre este projeto
-
-O DIO Agent foi criado para acompanhar você desde o início dos Bootcamps e Formações da DIO. A ideia é simples: aprender na era da IA fica mais fácil quando você tem um mentor disponível a qualquer hora.
-
-Bons estudos, e vem com a gente. 🚀

@@ -20,9 +20,11 @@ Por exemplo, se o estudante diz "não sei por onde começar", o agente usa a ski
 | [unblock-challenge](unblock-challenge/SKILL.md) | Destravar um desafio sem entregar a resposta | "Travei nesse desafio, me ajuda?" |
 | [explain-concept](explain-concept/SKILL.md) | Explicar um conceito de forma didática | "Não entendi o que é uma API." |
 | [web-search](web-search/SKILL.md) | Fundamentar respostas com busca atual e fontes citadas | "Qual a versão estável do Node hoje?" |
+| [vulnerability-analysis](vulnerability-analysis/SKILL.md) | Analisar e priorizar vulnerabilidades em código ou configuração autorizados | "Esse login local está vulnerável? Como corrijo?" |
 
 ## Como criar uma nova skill
 
 1. Crie uma pasta dentro de `skills/` com um nome curto em inglês.
 2. Adicione um arquivo `SKILL.md` com o cabeçalho e o processo (siga o modelo das skills existentes).
 3. Adicione a skill na tabela de `AGENTS.md` para o agente saber quando usá-la.
+
